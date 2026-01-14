@@ -27,9 +27,16 @@ public class Subscriber {
         return plan;
     }
 
-    public boolean setActive() {
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
         this.active = active;
-        return false;
+    }
+
+    public int getMonthsRemaining() {
+        return monthsRemaining;
     }
 
     public void extendSubscription(int months) {

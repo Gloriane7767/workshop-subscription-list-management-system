@@ -15,6 +15,7 @@ public class SubscriberProcessor {
         }
         return result;
     }
+
    public static List<Subscriber>
     applyToMatching(List<Subscriber> list, Predicate<Subscriber> rule, SubscriberAction action) {
         List<Subscriber> result = new ArrayList<>();
