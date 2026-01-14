@@ -2,6 +2,7 @@ package com.gloriane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class Main {
@@ -15,4 +16,42 @@ public class Main {
         System.out.println(dao.findByAll());
     }
 // Rules using lambda expressions for filtering
+SubscriberProcessor processor = new SubscriberProcessor();
+    Predicate<Subscriber> activeSubscribers = subscriber -> subscriber.setActive();
+    Predicate<Subscriber> isExpiring = subscriber -> subscriber.getmonthsRemaining() <= 1;
+    Predicate<Subscriber> activeAndExpiring = subscriber -> activeSubscribers.test(subscriber) && isExpiring.test(subscriber);
+    Predicate<Subscriber> paySubscriptionPlan = subscriber -> subscriber.getPlan() == Plan.BASIC || subscriber.getPlan() == Plan.PRO;
+    Predicate<Subscriber> proOnly = subscriber -> subscriber.getPlan() == Plan.PRO;
+    Consumer<Subscriber> extendBy3Months = subscriber -> subscriber.extendSubscription(3);
+    Consumer<Subscriber> deactivate = subscriber -> subscriber.setActive(false);
+
+// Rules using predefined method for actions
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+Step 1: What Main is responsible for
+Your Main will now do 4 things:
+Create subscribers
+Store them in DAO
+Define business rules (lambdas)
+Apply rules using SubscriberProcessor
+ */
