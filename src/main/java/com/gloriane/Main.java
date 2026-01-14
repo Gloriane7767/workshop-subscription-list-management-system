@@ -14,5 +14,5 @@ public class Main {
         subscribers.add(new Subscriber(5, "eve@example.com", Plan.PRO));
         System.out.println(subscribers);
     }
-
+// Rules using lambda expressions for filtering
 }
