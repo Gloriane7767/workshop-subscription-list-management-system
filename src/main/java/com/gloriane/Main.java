@@ -1,5 +1,6 @@
 package com.gloriane;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class Main {
@@ -17,8 +18,8 @@ public class Main {
         Predicate<Subscriber> activeAndExpiring = subscriber -> activeSubscribers.test(subscriber) && isExpiring.test(subscriber);
         Predicate<Subscriber> paySubscriptionPlan = subscriber -> subscriber.getPlan() == Plan.BASIC || subscriber.getPlan() == Plan.PRO;
         Predicate<Subscriber> proOnly = subscriber -> subscriber.getPlan() == Plan.PRO;
-        SubscriberAction extendBy3Months = subscriber -> subscriber.extendSubscription(3);
-        SubscriberAction deactivate = subscriber -> subscriber.setActive(false);
+        Consumer<Subscriber> extendBy3Months = subscriber -> subscriber.extendSubscription(3);
+        Consumer<Subscriber> deactivate = subscriber -> subscriber.setActive(false);
 
         // Use findSubscribers to filter and display results
         System.out.println("\nActive subscribers: " + SubscriberProcessor.findSubscribers(dao.findByAll(), activeSubscribers));
