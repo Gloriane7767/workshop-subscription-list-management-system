@@ -1,31 +1,21 @@
 package com.gloriane;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class SubscriberProcessor {
-    public static List<Subscriber>
-    findSubscribers(List<Subscriber> list, Predicate<Subscriber> rule) {
-        List<Subscriber> result = new ArrayList<>();
-        for (Subscriber subscriber : list) {
-            if (rule.test(subscriber)) {
-                result.add(subscriber);
-            }
-        }
-        return result;
+    public List<Subscriber> findSubscribers(List<Subscriber> subscribers, SubscriberFilter filter) {
+        return subscribers.stream()
+                .filter(filter::matches)
+                .collect(Collectors.toList());
     }
 
-   public static List<Subscriber>
-    applyToMatching(List<Subscriber> list, Predicate<Subscriber> rule, Consumer<Subscriber> action) {
-        List<Subscriber> result = new ArrayList<>();
-        for (Subscriber subscriber : list) {
-            if (rule.test(subscriber)) {
-                action.accept(subscriber);
-                result.add(subscriber);
-            }
-        }
-        return result;
+    public List<Subscriber> applyToMatching(List<Subscriber> subscribers,
+                                           SubscriberFilter filter,
+                                           SubscriberAction action) {
+        subscribers.stream()
+                .filter(filter::matches)
+                .forEach(action::run);
+        return subscribers;
     }
 }
